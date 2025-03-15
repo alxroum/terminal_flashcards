@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <string>
 using namespace std;
 
 int cardWidth = 30;
@@ -128,18 +129,24 @@ int displayCard(string *str, int maxLineLength) { // takes a string of text and 
         dashes += "-";
     }
     spaces += "|";
-    lines[0] = "." + dashes;
+    lines[0] = "." + dashes + ".";
     lines[cardHeight - 1] = "'" + dashes + "'\n";
 
     // add spacing to center text
-    for(int i = 0; i < cardWidth; i++) { // not exiting this loop
+    for(int i = 0; i < sizeof(lines); i++) { // not exiting this loop
         
-        int padding = (cardWidth - lines[i].size()) / 2;
-        string pad = "";
-        for(int j = 0; j < padding; j++) {
-            pad += " ";
+        cout << "\"" << lines[i] << "\"\n";
+
+        if(lines[i][0] == '\n') {
+            break;
         }
-        lines[i] = pad + lines[i];
+        if(lines[i][0] == '.' || lines[i][0] == '\'') {
+            continue;
+        }
+        int padding = (cardWidth - lines[i].size()) / 2 + 1;
+        string pad = string(pad, ' ');
+        
+        //lines[i] = pad + lines[i];
     }
 
     // print out lines
