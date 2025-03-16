@@ -1,5 +1,6 @@
 import display_card as dc
 import sys
+import json
 
 cardWidth = 30
 cardHeight = 8
@@ -63,36 +64,104 @@ def practice_set():
     print("Exiting.")
     return
 
+def read_json(file):
+    # returns a dictionary of terms and definitions based on the json file
+    with open(file, 'r') as f:
+        data = json.load(f)
+        return data
+    return None
+
+def save_and_exit():
+    
+    exit()
+    
+
+def practice_mode(filename):
+
+    #set = FlashcardSet()
+    data = read_json(filename)
+    if(data != None):
+        # successfull file reading
+        go = ""
+        idx = 0
+
+        keys = list(data.keys())
+        termdef = 0  # 0 for term, 1 for definition
+
+        while go == "":
+            # do something
+            if(idx > len(keys) - 1):  # loop back to start
+                idx = 0
+
+            termdef = 0
+
+            if(termdef == 0):
+                line = keys[idx]
+            else:
+                line = data[keys[idx]]
+
+            print(dc.display_card(line, 26, 2))
+
+            go = input("next (enter), exit (e): ")
+
+            while(go == "f"): 
+                # flip card
+                if(termdef == 0):
+                    termdef = 1
+                    line = data[keys[idx]]
+                else:
+                    termdef = 0
+                    line = keys[idx]
+
+                print(dc.display_card(line, 26, 2))
+
+                go = input("next (enter), exit (e): ")
+
+            if(go == 'e'):
+                save_and_exit()
+            elif(go != ""):
+                go = ""
+            idx += 1
+        save_and_exit()
+    
+    else:
+        print("File Not Found, Exiting.")
+        save_and_exit()
+
+def create_mode(filename):
+
+    pass
 
 def main():
-    _pr_mode = 0
-    _cr_mode = 0
-    _vw_mode = 0
 
-    print("Hello, World")
-    print(sys.argv)
+    if(sys.argv[1] == 'help'):
+        print("Usage: fcm <mode> <filename>")
+        print("Modes: practice (pr), create (cr), view (vw)")
+        print("Filename: exclude file extension (file should be a json file)")
+        exit()
 
-    if len(sys.argv) > 1:
+    if(len(sys.argv) > 2):
+        # we have expected arguments
+
+        filename = sys.argv[2] + '.json'
 
         match sys.argv[1]:
 
             case "pr":
                 print("Practice Mode:")
-                _pr_mode = 1
+                practice_mode(filename)
 
             case "cr":
                 print("Create Mode:")
-                _cr_mode = 1
-
-            case "vw":
-                print("View Mode:")
-                _vw_mode = 1
+                create_mode(filename)
 
             case _:
-                print("Invalid Mode Selected, Entering View Mode.")
+                print("Invalid Mode Selected, Entering Practice Mode.")
 
     else:
-        print("View Mode:")
-        _vw_mode = 1
+        print("Unexpected Arguments. usage: fcm <mode> <filename>")
+        exit()
+
+    # at this point we have either exited because of error or continued with a mode flag selected
 
 main()
