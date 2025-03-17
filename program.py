@@ -66,15 +66,35 @@ def practice_set():
 
 def read_json(file):
     # returns a dictionary of terms and definitions based on the json file
-    with open(file, 'r') as f:
-        data = json.load(f)
-        return data
-    return None
+    try:
+        with open(file, 'r') as f:
+            data = json.load(f)
+            return data
+    except FileNotFoundError:
+        print("File Not Found.")
+        exit_program()
+    else: return None
 
-def save_and_exit():
+def save_json(file, data):
+    try:
+        with open(file, 'w') as f:
+            json.dump(data, f, indent=4)
+            return
+    except FileNotFoundError:
+        print("File Not Found.")
+        exit_program()
+    else: 
+        print("Saved Succesfully.")
+        return None
+
+def save_and_exit(file, data):
     
+    save_json(file, data)
+    exit_program()
+
+def exit_program():  # in case needed this is always the last thing that runs before program exits
+
     exit()
-    
 
 def practice_mode(filename):
 
@@ -102,7 +122,7 @@ def practice_mode(filename):
 
             print(dc.display_card(line, 26, 2))
 
-            go = input("next (enter), exit (e): ")
+            go = input("next (enter), flip (f), exit (e): ")
 
             while(go == "f"): 
                 # flip card
@@ -115,53 +135,72 @@ def practice_mode(filename):
 
                 print(dc.display_card(line, 26, 2))
 
-                go = input("next (enter), exit (e): ")
+                go = input("next (enter), flip (f), exit (e): ")
 
             if(go == 'e'):
                 save_and_exit()
             elif(go != ""):
                 go = ""
             idx += 1
-        save_and_exit()
+        exit_program()
     
     else:
         print("File Not Found, Exiting.")
-        save_and_exit()
+        exit_program()
 
 def create_mode(filename):
 
-    pass
+    data = read_json(filename)
+    if(data != None):
+        go = "y"
+
+        while(go.lower() == 'y' or go.lower() == 'yes'):
+            
+            term = input("Enter the new term: ")
+            definition = input("Enter the new definition: ")
+
+            data[term] = definition
+
+            go = input("Would you like to create another flashcard? y/n: ")
+        
+        save_and_exit(filename, data)
+
 
 def main():
 
-    if(sys.argv[1] == 'help'):
-        print("Usage: fcm <mode> <filename>")
-        print("Modes: practice (pr), create (cr), view (vw)")
-        print("Filename: exclude file extension (file should be a json file)")
-        exit()
+    try:
+        if(sys.argv[1] == 'help'):
+            print("Usage: fcm <mode> <filename>")
+            print("Modes: practice (pr), create (cr), view (vw)")
+            print("Filename: exclude file extension (file should be a json file)")
+            exit()
 
-    if(len(sys.argv) > 2):
-        # we have expected arguments
+        if(len(sys.argv) > 2):
+            # we have expected arguments
 
-        filename = sys.argv[2] + '.json'
+            filename = sys.argv[2] + '.json'
 
-        match sys.argv[1]:
+            match sys.argv[1]:
 
-            case "pr":
-                print("Practice Mode:")
-                practice_mode(filename)
+                case "pr":
+                    print("Practice Mode:")
+                    practice_mode(filename)
 
-            case "cr":
-                print("Create Mode:")
-                create_mode(filename)
+                case "cr":
+                    print("Create Mode:")
+                    create_mode(filename)
 
-            case _:
-                print("Invalid Mode Selected, Entering Practice Mode.")
+                case "em":
+                    print("Edit Mode")
 
-    else:
-        print("Unexpected Arguments. usage: fcm <mode> <filename>")
-        exit()
+                case _:
+                    print("Invalid Mode Selected, Entering Practice Mode.")
 
+        else:
+            print("Unexpected Arguments. usage: fcm <mode> <filename>")
+            exit()
+    except Exception:
+        print("Error, Invalid Arguments. Exiting.")
     # at this point we have either exited because of error or continued with a mode flag selected
 
 main()

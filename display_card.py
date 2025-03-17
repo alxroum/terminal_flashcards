@@ -29,6 +29,8 @@ def display_card(str, maxWidth, padding):
             last = start + curr.rfind(' ')  # find first space searching backwards
             curr = str[start:last]
 
+        #ext = curr.lstrip()
+
         if start == 0:
             textLines.append(curr.lstrip() + " " * (maxTextPerLine - len(curr)))
         else:
@@ -37,9 +39,14 @@ def display_card(str, maxWidth, padding):
         start = last
         count += len(curr)
 
-    textLines.append(str[start:].lstrip() + " " * (maxTextPerLine - len(str[start:]) + 1))
+    ext = 0
+    if len(str[start:].lstrip() + " " * (maxTextPerLine - len(str[start:]))) < maxTextPerLine:
+       ext = 1
+
+    textLines.append(str[start:].lstrip() + " " * (maxTextPerLine - len(str[start:]) + ext))
     
     cardLines.append("." + "-" * (maxTextPerLine + (2 * widthPad)) + ".")
+    
     [cardLines.append("|" + " " * widthPad + i + " " * widthPad + "|") for i in textLines]
     cardLines.append("'" + "-" * (maxTextPerLine + (2 * widthPad)) + "'")
 
@@ -49,9 +56,9 @@ def display_card(str, maxWidth, padding):
     return output  # eventually this will return one string separated by /n
 
 
-def main():
-    print("Hello, World!")
+# def main():
+#     print("Hello, World!")
 
-    print(display_card("This test line of text for the purpose of testing.", 30, 5))
+#     print(display_card("Term1", 26, 2))
 
-main()
+#main()
