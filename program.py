@@ -86,6 +86,12 @@ def save_json(file, data):
     else: 
         print("Saved Succesfully.")
         return None
+    
+def delete_card(filename, key):
+
+    data = read_json(filename)  # read file
+    
+
 
 def save_and_exit(file, data):
     
@@ -164,6 +170,58 @@ def create_mode(filename):
             go = input("Would you like to create another flashcard? y/n: ")
         
         save_and_exit(filename, data)
+
+def edit_mode(filename):
+
+    #set = FlashcardSet()
+    data = read_json(filename)
+    if(data != None):
+        # successfull file reading
+        go = ""
+        idx = 0
+
+        keys = list(data.keys())
+        termdef = 0  # 0 for term, 1 for definition
+
+        while go == "":
+            # do something
+            if(idx > len(keys) - 1):  # loop back to start
+                idx = 0
+
+            termdef = 0
+
+            if(termdef == 0):
+                line = keys[idx]
+            else:
+                line = data[keys[idx]]
+
+            print(dc.display_card(line, 26, 2))
+
+            go = input("next (enter), flip (f), exit (e): ")
+
+            while(go == "f"): 
+                # flip card
+                if(termdef == 0):
+                    termdef = 1
+                    line = data[keys[idx]]
+                else:
+                    termdef = 0
+                    line = keys[idx]
+
+                print(dc.display_card(line, 26, 2))
+
+                go = input("next (enter), flip (f), exit (e): ")
+
+            if(go == 'e'):
+                save_and_exit()
+            elif(go != ""):
+                go = ""
+            idx += 1
+        exit_program()
+    
+    else:
+        print("File Not Found, Exiting.")
+        exit_program()
 
 
 def main():
