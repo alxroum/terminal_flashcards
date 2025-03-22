@@ -1,10 +1,12 @@
 import display_card as dc
 import sys
 import json
+import os
 
 cardWidth = 30
 cardHeight = 8
 
+# https://stackoverflow.com/questions/5458048/how-can-i-make-a-python-script-standalone-executable-to-run-without-any-dependen
 
 class Flashcard:
 
@@ -51,18 +53,12 @@ class FlashcardSet:
     def get_cards(self):
         return self.__cards
 
+def clear_screen():  # clears terminal screen
+    os.system('cls')
 
-def practice_set():
-    go = "\n"
-    idx = 0
+def delete_card(filename, key):
 
-    while go == "n":
-        # do something
-
-        go = input("Next Card?")
-        idx += 1
-    print("Exiting.")
-    return
+    data = read_json(filename)  # read file
 
 def read_json(file):
     # returns a dictionary of terms and definitions based on the json file
@@ -86,12 +82,6 @@ def save_json(file, data):
     else: 
         print("Saved Succesfully.")
         return None
-    
-def delete_card(filename, key):
-
-    data = read_json(filename)  # read file
-    
-
 
 def save_and_exit(file, data):
     
@@ -110,6 +100,7 @@ def practice_mode(filename):
         # successfull file reading
         go = ""
         idx = 0
+        clear_screen()
 
         keys = list(data.keys())
         termdef = 0  # 0 for term, 1 for definition
@@ -132,6 +123,7 @@ def practice_mode(filename):
 
             while(go == "f"): 
                 # flip card
+                clear_screen()
                 if(termdef == 0):
                     termdef = 1
                     line = data[keys[idx]]
@@ -144,10 +136,11 @@ def practice_mode(filename):
                 go = input("next (enter), flip (f), exit (e): ")
 
             if(go == 'e'):
-                save_and_exit()
+                exit_program()
             elif(go != ""):
                 go = ""
-            idx += 1
+            idx += 1  # go to the next card
+            clear_screen()
         exit_program()
     
     else:
@@ -250,6 +243,7 @@ def main():
 
                 case "em":
                     print("Edit Mode")
+                    clear_screen()  # testing purposes !!!
 
                 case _:
                     print("Invalid Mode Selected, Entering Practice Mode.")
