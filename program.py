@@ -8,6 +8,13 @@ cardHeight = 8
 
 # https://stackoverflow.com/questions/5458048/how-can-i-make-a-python-script-standalone-executable-to-run-without-any-dependen
 
+#TODO 
+
+# Combine the edit mode and the create mode so that every file modification can be done in one mode. Also implement a way to delete cards from the file
+
+# for delete, makde d delete with an extra prompt to "are you sure you want to delete?"
+# if instead, dp is typed, "delete permanently", do not prompt and just delete immediately
+
 class Flashcard:
 
     def __init__(self, term, definition):
@@ -56,9 +63,9 @@ class FlashcardSet:
 def clear_screen():  # clears terminal screen
     os.system('cls')
 
-def delete_card(filename, key):
+def delete_card(*data, key): # this method will just delete a card from the dictionary and WILL NOT update the file afterwards, save_json will need to be called to save to the file.
 
-    data = read_json(filename)  # read file
+    del data[key]
 
 def read_json(file):
     # returns a dictionary of terms and definitions based on the json file
@@ -110,7 +117,7 @@ def practice_mode(filename):
             if(idx > len(keys) - 1):  # loop back to start
                 idx = 0
 
-            termdef = 0
+            termdef = 0  # change this to determine if cards start as term or definition
 
             if(termdef == 0):
                 line = keys[idx]
@@ -181,7 +188,7 @@ def edit_mode(filename):
             if(idx > len(keys) - 1):  # loop back to start
                 idx = 0
 
-            termdef = 0
+            termdef = 0  # this can be set to 1 by default to display the definition first
 
             if(termdef == 0):
                 line = keys[idx]
@@ -222,14 +229,16 @@ def main():
     try:
         if(sys.argv[1] == 'help'):
             print("Usage: fcm <mode> <filename>")
-            print("Modes: practice (pr), create (cr), view (vw)")
+            print("Modes: practice (pr), create (cr), edit (em)")
             print("Filename: exclude file extension (file should be a json file)")
             exit()
 
         if(len(sys.argv) > 2):
             # we have expected arguments
 
-            filename = sys.argv[2] + '.json'
+            filename = sys.argv[2] 
+            filename += '.json'
+
 
             match sys.argv[1]:
 
