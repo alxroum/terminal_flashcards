@@ -3,12 +3,13 @@ import math
 
 # this finction will display a terminal text representation of a flashcard. The card will always be maxWidth
 # characters wide
-def display_card(str, maxWidth, padding):
+def display_card(str, maxWidth, paddingx, paddingy):
     
     cardLines = []
     output = ""
 
-    widthPad = padding  # how much space between text and the border
+    widthPad = paddingx  # how much space between text and the border
+    heightPad = paddingy;  # 2 lines of height padding
 
     maxTextPerLine = maxWidth - (2 * widthPad) - 2  # max space allowed for text to achieve the correct width
 
@@ -45,10 +46,15 @@ def display_card(str, maxWidth, padding):
 
     textLines.append(str[start:].lstrip() + " " * (maxTextPerLine - len(str[start:]) + ext))
     
-    cardLines.append("." + "-" * (maxTextPerLine + (2 * widthPad)) + ".")
+    cardLines.append("." + "-" * (maxTextPerLine + (2 * widthPad)) + ".")  # top line
+
+    [cardLines.append("|" + " " * widthPad + " " * maxTextPerLine + " " * widthPad + "|") for x in range(heightPad)]  # height padding
     
-    [cardLines.append("|" + " " * widthPad + i + " " * widthPad + "|") for i in textLines]
-    cardLines.append("'" + "-" * (maxTextPerLine + (2 * widthPad)) + "'")
+    [cardLines.append("|" + " " * widthPad + i + " " * widthPad + "|") for i in textLines]  # text
+
+    [cardLines.append("|" + " " * widthPad + " " * maxTextPerLine + " " * widthPad + "|") for x in range(heightPad)]  # height padding
+    
+    cardLines.append("'" + "-" * (maxTextPerLine + (2 * widthPad)) + "'")  # bottom line
 
     for i in cardLines:
         output += i + '\n'
