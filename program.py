@@ -112,10 +112,12 @@ def practice_mode(filename):
         keys = list(data.keys())
         termdef = 0  # 0 for term, 1 for definition
 
-        while go == "":
+        while go == "" or go == 'b':
             # do something
             if(idx > len(keys) - 1):  # loop back to start
                 idx = 0
+            if(idx < 0):
+                idx = len(keys) - 1  # loop to end
 
             termdef = 0  # change this to determine if cards start as term or definition
 
@@ -124,9 +126,9 @@ def practice_mode(filename):
             else:
                 line = data[keys[idx]]
 
-            print(dc.display_card(line, 26, 2))
+            print(dc.display_card(line, 26, 2, 2))
 
-            go = input("next (enter), flip (f), exit (e): ")
+            go = input("next (enter), flip (f), back (b), exit (e): ")
 
             while(go == "f"): 
                 # flip card
@@ -138,15 +140,22 @@ def practice_mode(filename):
                     termdef = 0
                     line = keys[idx]
 
-                print(dc.display_card(line, 26, 2))
+                print(dc.display_card(line, 26, 2, 2))
 
-                go = input("next (enter), flip (f), exit (e): ")
+                go = input("next (enter), flip (f), back (b), exit (e): ")
 
             if(go == 'e'):
                 exit_program()
-            elif(go != ""):
-                go = ""
-            idx += 1  # go to the next card
+            # add a way to go back to the previous card
+
+            if(go == 'b'):
+                idx += 1  # go to the next card
+
+            if(go == ''):
+                idx -= 1;  # go to the prev card
+            
+            go = ""  # continue loop
+
             clear_screen()
         exit_program()
     
@@ -195,7 +204,7 @@ def edit_mode(filename):
             else:
                 line = data[keys[idx]]
 
-            print(dc.display_card(line, 26, 2))
+            print(dc.display_card(line, 26, 2, 2))
 
             go = input("next (enter), flip (f), exit (e): ")
 
@@ -208,7 +217,7 @@ def edit_mode(filename):
                     termdef = 0
                     line = keys[idx]
 
-                print(dc.display_card(line, 26, 2))
+                print(dc.display_card(line, 26, 2, 2))
 
                 go = input("next (enter), flip (f), exit (e): ")
 
