@@ -15,50 +15,50 @@ cardHeight = 8
 # for delete, makde d delete with an extra prompt to "are you sure you want to delete?"
 # if instead, dp is typed, "delete permanently", do not prompt and just delete immediately
 
-class Flashcard:
+# class Flashcard:
 
-    def __init__(self, term, definition):
-        self.__term = term
-        self.__definition = definition
+#     def __init__(self, term, definition):
+#         self.__term = term
+#         self.__definition = definition
 
-    def get_term(self):
-        return self.__term
+#     def get_term(self):
+#         return self.__term
 
-    def get_def(self):
-        return self.__definition
+#     def get_def(self):
+#         return self.__definition
 
-    def set_term(self, term):
-        self.__term = term
+#     def set_term(self, term):
+#         self.__term = term
 
-    def set_def(self, definition):
-        self.__definition = definition
+#     def set_def(self, definition):
+#         self.__definition = definition
 
-    def print_term(self):
-        print(self.__term)
+#     def print_term(self):
+#         print(self.__term)
 
-    def print_def(self):
-        print(self.__definition)
+#     def print_def(self):
+#         print(self.__definition)
 
-    def print_both(self):
-        print(self.__term, " --> ", self.__definition)
+#     def print_both(self):
+#         print(self.__term, " --> ", self.__definition)
 
 
-class FlashcardSet:
+# class FlashcardSet:
 
-    def __init__(self, cards):
-        self.__cards = cards
-        self.__size = len(cards)
+#     def __init__(self, cards):
+#         self.__cards = cards
+#         self.__size = len(cards)
 
-    @staticmethod
-    def import_from_file(file):
-        # return a flashcard set from the data in the file
-        pass
+#     @staticmethod
+#     def import_from_file(file):
+#         # return a flashcard set from the data in the file
+#         pass
 
-    def get_size(self):
-        return self.__size
+#     def get_size(self):
+#         return self.__size
 
-    def get_cards(self):
-        return self.__cards
+#     def get_cards(self):
+#         return self.__cards
 
 def clear_screen():  # clears terminal screen
     os.system('cls')
@@ -169,14 +169,21 @@ def create_mode(filename):
     if(data != None):
         go = "y"
 
-        while(go.lower() == 'y' or go.lower() == 'yes'):
+        while(go != 'e'):
             
             term = input("Enter the new term: ")
+
+            if term == 'e':
+                save_and_exit(filename, data)
+
             definition = input("Enter the new definition: ")
+
+            if definition == 'e':
+                save_and_exit(filename, data)
 
             data[term] = definition
 
-            go = input("Would you like to create another flashcard? y/n: ")
+            go = input("Continue (enter), or exit (e).")
         
         save_and_exit(filename, data)
 
