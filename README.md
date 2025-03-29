@@ -1,15 +1,36 @@
 # <ins>terminal_flashcards</ins>
 ### Flashcard Manager in your terminal
 
-<br> <br>
+<br>
 
-### CLONE PROJECT
+## Getting Started
+<br>
 
-### RUNNING PROGRAM WITH PYTHON
+### Clone Project
 ```sh
-py program.py <mode> <filename.json>
+git clone https://github.com/alxroum/terminal_flashcards.git
+```
+<br>
+
+### Usage
+```
+Modes: practice (pr), create (cr), edit (em)
+Filename: exclude file extension (file should be a json file)
+```
+<br>
+
+### Run With Python
+```sh
+py program.py <mode> <filename>
 ``` 
-<br> note that the only current accepted file is a json
+<br>
 
+### Run With Executable
+```
+fcm.exe <mode> <filename>
+```
+### Run the manager with my_file in practice mode:
+```sh
+fcm pr my_file
+```
 
-RUNNING PROGRAM WITH COMPILED .EXE
