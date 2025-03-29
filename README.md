@@ -1,4 +1,5 @@
 # <ins>terminal_flashcards</ins>
+![alt text](fcm pr my_file![alt text](https://github.com/alxroum/terminal_flashcards/blob/main/graphics/icon.png))
 ### Flashcard Manager in your terminal
 
 <br>
