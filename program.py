@@ -6,60 +6,6 @@ import os
 cardWidth = 30
 cardHeight = 8
 
-# https://stackoverflow.com/questions/5458048/how-can-i-make-a-python-script-standalone-executable-to-run-without-any-dependen
-
-#TODO 
-
-# Combine the edit mode and the create mode so that every file modification can be done in one mode. Also implement a way to delete cards from the file
-
-# for delete, makde d delete with an extra prompt to "are you sure you want to delete?"
-# if instead, dp is typed, "delete permanently", do not prompt and just delete immediately
-
-# class Flashcard:
-
-#     def __init__(self, term, definition):
-#         self.__term = term
-#         self.__definition = definition
-
-#     def get_term(self):
-#         return self.__term
-
-#     def get_def(self):
-#         return self.__definition
-
-#     def set_term(self, term):
-#         self.__term = term
-
-#     def set_def(self, definition):
-#         self.__definition = definition
-
-#     def print_term(self):
-#         print(self.__term)
-
-#     def print_def(self):
-#         print(self.__definition)
-
-#     def print_both(self):
-#         print(self.__term, " --> ", self.__definition)
-
-
-# class FlashcardSet:
-
-#     def __init__(self, cards):
-#         self.__cards = cards
-#         self.__size = len(cards)
-
-#     @staticmethod
-#     def import_from_file(file):
-#         # return a flashcard set from the data in the file
-#         pass
-
-#     def get_size(self):
-#         return self.__size
-
-#     def get_cards(self):
-#         return self.__cards
-
 def clear_screen():  # clears terminal screen
     os.system('cls')
 
@@ -112,16 +58,18 @@ def practice_mode(filename):
         keys = list(data.keys())
         termdef = 0  # 0 for term, 1 for definition
 
-        while go == "" or go == 'b':
-            # do something
+        while go == "":  # program should continue
+
+            clear_screen()
+
             if(idx > len(keys) - 1):  # loop back to start
                 idx = 0
             if(idx < 0):
                 idx = len(keys) - 1  # loop to end
 
-            termdef = 0  # change this to determine if cards start as term or definition
+            line = ''
 
-            if(termdef == 0):
+            if termdef == 0:
                 line = keys[idx]
             else:
                 line = data[keys[idx]]
@@ -130,33 +78,24 @@ def practice_mode(filename):
 
             go = input("next (enter), flip (f), back (b), exit (e): ")
 
-            while(go == "f"): 
-                # flip card
+            if go == 'e':
                 clear_screen()
-                if(termdef == 0):
-                    termdef = 1
-                    line = data[keys[idx]]
-                else:
-                    termdef = 0
-                    line = keys[idx]
-
-                print(dc.display_card(line, 26, 2, 2))
-
-                go = input("next (enter), flip (f), back (b), exit (e): ")
-
-            if(go == 'e'):
                 exit_program()
-            # add a way to go back to the previous card
-
-            if(go == 'b'):
-                idx += 1  # go to the next card
-
-            if(go == ''):
-                idx -= 1;  # go to the prev card
             
-            go = ""  # continue loop
+            elif go == 'f':  # flip term and loop again, without going to the next card
+                if termdef == 1: termdef = 0;
+                else: termdef = 1
 
-            clear_screen()
+            elif go == 'b':
+                idx -= 1
+                termdef = 0  # reset card back to show term
+            
+            elif go == '':
+                idx += 1
+                termdef = 0  # reset card back to show term
+
+            go = ''
+
         exit_program()
     
     else:
@@ -174,6 +113,7 @@ def create_mode(filename):
             term = input("Enter the new term: ")
 
             if term == 'e':
+                clear_screen()
                 save_and_exit(filename, data)
 
             definition = input("Enter the new definition: ")
@@ -195,45 +135,50 @@ def edit_mode(filename):
         # successfull file reading
         go = ""
         idx = 0
+        clear_screen()
 
         keys = list(data.keys())
         termdef = 0  # 0 for term, 1 for definition
 
-        while go == "":
-            # do something
+        while go == "":  # program should continue
+
+            clear_screen()
+
             if(idx > len(keys) - 1):  # loop back to start
                 idx = 0
+            if(idx < 0):
+                idx = len(keys) - 1  # loop to end
 
-            termdef = 0  # this can be set to 1 by default to display the definition first
+            line = ''
 
-            if(termdef == 0):
+            if termdef == 0:
                 line = keys[idx]
             else:
                 line = data[keys[idx]]
 
             print(dc.display_card(line, 26, 2, 2))
 
-            go = input("next (enter), flip (f), exit (e): ")
+            go = input("next (enter), flip (f), back (b), exit (e): ")
 
-            while(go == "f"): 
-                # flip card
-                if(termdef == 0):
-                    termdef = 1
-                    line = data[keys[idx]]
-                else:
-                    termdef = 0
-                    line = keys[idx]
+            if go == 'e':
+                clear_screen()
+                save_and_exit(filename, data)
+            
+            elif go == 'f':  # flip term and loop again, without going to the next card
+                if termdef == 1: termdef = 0;
+                else: termdef = 1
 
-                print(dc.display_card(line, 26, 2, 2))
+            elif go == 'b':
+                idx -= 1
+                termdef = 0  # reset card back to show term
+            
+            elif go == '':
+                idx += 1
+                termdef = 0  # reset card back to show term
 
-                go = input("next (enter), flip (f), exit (e): ")
+            go = ''
 
-            if(go == 'e'):
-                save_and_exit()
-            elif(go != ""):
-                go = ""
-            idx += 1
-        exit_program()
+        save_and_exit(filename, data)
     
     else:
         print("File Not Found, Exiting.")
@@ -268,7 +213,7 @@ def main():
 
                 case "em":
                     print("Edit Mode")
-                    clear_screen()  # testing purposes !!!
+                    edit_mode(filename)
 
                 case _:
                     print("Invalid Mode Selected, Entering Practice Mode.")
@@ -276,7 +221,7 @@ def main():
         else:
             print("Unexpected Arguments. usage: fcm <mode> <filename>")
             exit()
-    except Exception:
+    except TypeError:
         print("Error, Invalid Arguments. Exiting.")
     # at this point we have either exited because of error or continued with a mode flag selected
 
