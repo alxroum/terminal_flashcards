@@ -3,6 +3,11 @@ import sys
 import json
 import os
 
+
+# TODO
+
+# make a program save file that stores flashcard display settings as well as whether the term or definition is shown first
+
 cardWidth = 30
 cardHeight = 8
 
