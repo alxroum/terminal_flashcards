@@ -32,7 +32,7 @@ def save_json(file, data):
     except FileNotFoundError:
         print("File Not Found.")
         exit_program()
-    else: 
+    finally: 
         print("Saved Succesfully.")
         return None
 
@@ -76,9 +76,9 @@ def practice_mode(filename):
 
             print(dc.display_card(line, 26, 2, 2))
 
-            go = input("next (enter), flip (f), back (b), exit (e): ")
+            go = input("next (enter), flip (f), back (b), quit (q): ")
 
-            if go == 'e':
+            if go == 'q':
                 clear_screen()
                 exit_program()
             
@@ -108,22 +108,22 @@ def create_mode(filename):
     if(data != None):
         go = "y"
 
-        while(go != 'e'):
+        while(go != ''):
             
             term = input("Enter the new term: ")
 
-            if term == 'e':
+            if term == 'q':
                 clear_screen()
                 save_and_exit(filename, data)
 
             definition = input("Enter the new definition: ")
 
-            if definition == 'e':
+            if definition == 'q':
                 save_and_exit(filename, data)
 
             data[term] = definition
 
-            go = input("Continue (enter), or exit (e).")
+            go = input("Continue (enter), or quit (q).")
         
         save_and_exit(filename, data)
 
@@ -138,11 +138,12 @@ def edit_mode(filename):
         clear_screen()
 
         keys = list(data.keys())
+        values = list(data.values())
         termdef = 0  # 0 for term, 1 for definition
 
         while go == "":  # program should continue
 
-            clear_screen()
+            #clear_screen()
 
             if(idx > len(keys) - 1):  # loop back to start
                 idx = 0
@@ -158,9 +159,31 @@ def edit_mode(filename):
 
             print(dc.display_card(line, 26, 2, 2))
 
-            go = input("next (enter), flip (f), back (b), exit (e): ")
+            go = input("next (enter), flip (f), back (b), quit (q), edit (e), delete (d): ")
 
             if go == 'e':
+                if termdef == 0:  # editing term
+                    new_term = input("You are changing the card's term. What would you like to change it to?\n")
+
+                    if new_term != '':
+                        keys[idx] = new_term
+                        # create new dict from stored lists
+                        data = dict(zip(keys, values))
+                        save_json(filename, data)
+                        data = read_json(filename)
+                else:  # editing definition
+                    new_def = input("You are changing the card's definition. What would you like to change it to?\n")
+
+                    if new_def != '':
+                        data[keys[idx]] = new_def
+                        save_json(filename, data)
+                        data = read_json(filename)
+                
+
+            if go == 'd':
+                pass
+
+            if go == 'q':
                 clear_screen()
                 save_and_exit(filename, data)
             
@@ -214,6 +237,9 @@ def main():
                 case "em":
                     print("Edit Mode")
                     edit_mode(filename)
+
+                case "q":
+                    exit_program()
 
                 case _:
                     print("Invalid Mode Selected, Entering Practice Mode.")
