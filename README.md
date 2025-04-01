@@ -61,8 +61,8 @@ tfc pr my_file
 <a name="file_formatting"></a>
 ### <b>Save File Formatting</b>
 
-All flashcard sets are saved in ```.json``` files. All files have terms and definitions as shown below:
-
+All flashcard sets are saved in ```.json``` files. All files have terms and definitions stored as shown below:
+```my_flashcard_set.json```
 ``` json
 {
     "Term1": "Definition1",
