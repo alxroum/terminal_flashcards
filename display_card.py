@@ -3,6 +3,9 @@ import math
 
 # this finction will display a terminal text representation of a flashcard. The card will always be maxWidth
 # characters wide
+
+# TODO --  change display_card to be a helper function that updates the settings from a display_settings.json file
+# this will then call the current function which will display to the terminal, the correct specifications for the flashcard
 def display_card(str, maxWidth, paddingx, paddingy):
     
     cardLines = []

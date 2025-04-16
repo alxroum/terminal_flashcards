@@ -1,6 +1,6 @@
 # <b>Terminal Flashcards (TFC)</b>
 
-<img src="graphics/icon.png" alt="terminal flashcards logo" width="500" title="terminal flashcards logo"> 
+<img src="graphics/updated_icon.png" alt="terminal flashcards logo" width="500" title="terminal flashcards logo"> 
 
 <br>
 

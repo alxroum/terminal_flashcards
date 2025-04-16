@@ -35,6 +35,6 @@ def main():
 
     lines = read_from_txt("input.txt")
 
-    program.save_json("input.json", lines)
+    program.save_json("exam_4_terms.json", lines)
 
 main()
