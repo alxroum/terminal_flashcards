@@ -8,6 +8,8 @@ import os
 
 # make a program save file that stores flashcard display settings as well as whether the term or definition is shown first
 
+# add an elimination mode where you can delete cards that you know
+
 cardWidth = 30
 cardHeight = 8
 
@@ -52,8 +54,9 @@ def exit_program():  # in case needed this is always the last thing that runs be
 
 def practice_mode(filename):
 
-    #set = FlashcardSet()
     data = read_json(filename)
+    td_default = 0  # whether the cards show term or definition first, 0 for term, 1 for definition
+
     if(data != None):
         # successfull file reading
         go = ""
@@ -61,7 +64,7 @@ def practice_mode(filename):
         clear_screen()
 
         keys = list(data.keys())
-        termdef = 0  # 0 for term, 1 for definition
+        termdef = td_default  # 0 for term, 1 for definition
 
         while go == "":  # program should continue
 
@@ -79,25 +82,32 @@ def practice_mode(filename):
             else:
                 line = data[keys[idx]]
 
-            print(dc.display_card(line, 26, 2, 2))
+            # print the card to the screen by calling the display_card method
+            print(dc.display_card(line, 26 * 2, 2, 2))
 
-            go = input("next (enter), flip (f), back (b), quit (q): ")
+            if td_default == 0: # display options based on default
+                go = input("next (enter), flip (f), back (b), term first (t), quit (q): ")
+            else:
+                go = input("next (enter), flip (f), back (b), definition first (t), quit (q): ")
 
             if go == 'q':
                 clear_screen()
                 exit_program()
             
             elif go == 'f':  # flip term and loop again, without going to the next card
-                if termdef == 1: termdef = 0;
-                else: termdef = 1
+                termdef = (1 - termdef)  # toggle termdef
 
             elif go == 'b':
                 idx -= 1
                 termdef = 0  # reset card back to show term
+
+            elif go == 't':  # change default to definition first or term first
+                td_default = (1 - td_default)  # toggle default
+                termdef = td_default  # set current card to new default
             
             elif go == '':
                 idx += 1
-                termdef = 0  # reset card back to show term
+                termdef = td_default  # reset card back to show term
 
             go = ''
 
@@ -162,7 +172,7 @@ def edit_mode(filename):
             else:
                 line = data[keys[idx]]
 
-            print(dc.display_card(line, 26, 2, 2))
+            print(dc.display_card(line, 26 * 2, 2, 2))
 
             go = input("next (enter), flip (f), back (b), quit (q), edit (e), delete (d): ")
 
@@ -216,7 +226,13 @@ def edit_mode(filename):
 def main():
 
     try:
-        if(sys.argv[1] == 'help'):
+
+        if(len(sys.argv) < 2):  # no arguments
+            print("Unexpected Arguments. usage: fcm <mode> <filename>")
+            print("For more information, use: fcm help")
+            exit()
+
+        if(sys.argv[1] == 'help'): # we have at least one argument
             print("Usage: fcm <mode> <filename>")
             print("Modes: practice (pr), create (cr), edit (em)")
             print("Filename: exclude file extension (file should be a json file)")
@@ -249,9 +265,6 @@ def main():
                 case _:
                     print("Invalid Mode Selected, Entering Practice Mode.")
 
-        else:
-            print("Unexpected Arguments. usage: fcm <mode> <filename>")
-            exit()
     except TypeError:
         print("Error, Invalid Arguments. Exiting.")
     # at this point we have either exited because of error or continued with a mode flag selected

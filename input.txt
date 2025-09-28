@@ -1,0 +1,50 @@
+1.	Chip making – A shearing process where material is removed from a workpiece to create chips. This process can produce close dimensional tolerances and can create special surfaces with universal tooling, while also being able to machine hard materials.
+2.	Lathe – A chip making process where material is spun at a high speed and a cutting tool is used to shear material away and create chips.
+3.	Independent variables – Any variables that can be controlled directly. Tool material and hardness, shape, surface finish, etc. The workpiece material and hardness as well as the cutting speed, depth and whether cutting fluid is used.
+4.	Dependent variables – Anything that depends on the independent variables, so results of the processes. Type of chip created, force, energy, temperature, surface finish and integrity of the workpiece.
+5.	Turning – The manufacturing process that a lathe uses to machine parts with high precision.
+6.	Knurling – Creating a pattern onto a workpiece, usually done on a lathe. Pressing a knurling tool creates plastic deformation in the part, deforming the surface and forming the patterned surface.
+7.	Facing – Machining the end of a workpiece that is perpendicular to the rotation of the part, done on a lathe.
+8.	Carbide tools bit – A very highly durable and hard material that is made from tungsten carbide and can cut hard materials like high carbon steel.
+9.	H.A.Z – Heat Affected Zone. This is the area of the part that is impacted by the heat of the machining process and is a weak point of the part.
+10.	Feed – How fast the tool is moved into or against the part. Usually measured in surface units over time.
+11.	Chip formation – The result of removing material from turning a part on a lathe and pressing a tool into the part, shearing chips away. Has many factors that depend on things like rotational speed, force, heat, and surface speed.
+12.	Flank wear – High temperatures caused by friction between the tool and the machined surface results in wear to the surface.
+13.	Crater wear – Wear on the tool caused by friction and heat between the tool and chips.
+14.	Tool Life – Tool decay happens due to cutting edge flank wear. This is modelled by the Taylor Equation and depends on cutting speed, surface speed, and time.
+15.	Hard turning – Turning materials that are much harder than traditional parts, giving a superior surface finish and output than a more traditional grinding process. This is used for shapes that are distorted after the hardening process.
+16.	Milling – A machining process where a spinning tool is used to remove material when the part is stationary.
+17.	Five axis milling machines – A special type of mill that allows for the endmill to access the workpiece from any direction.
+18.	Face mills – Larger tools used to flatten surfaces.
+19.	End mills – Pocket mills with flat ends, contour mills with round ends, and chamfer mills to mill angles.
+20.	Ultraprecision machining – The highest precision is achieved by a faster speed of the spindle or tool.
+21.	Ultrahigh speed machining – Finding the optimal speeds and feeds where machining can be done as fast as possible without breaking the part or the tool. Higher feeding speeds are generally going to mean higher spindle speeds.
+22.	Hard machining – Machining hard or heat-treated materials, using special tools that are harder than the materials being machined.
+23.	Drilling – Cutting holes in parts with a drilling tool.
+24.	Gun drilling – A process for making deep drilled holes. The drill is a long drill with coolant flowing through to dissipate heat and results in a high quality surface finish with a single process.
+25.	CNC milling – Computer Numerical Controlled milling uses computer code to move an endmill around and mill a part with high precision and accuracy and quickly, something that humans can’t achieve.
+26.	Knee mill – Knee mill or vertical mill is a type of mill where the endmill is in a vertical position and the material removal happens on the horizontal axis.
+27.	Reaming – Enlarging a hole after a smaller diameter drill has pre-drilled a hole. This generally leads to a better surface finish as well.
+28.	Broaching – Removing material with a special tool called a broach, which has teeth and is the shape the section of the part for intended removal. This process removes material with a pushing or pulling motion using the teeth on the tool. This is generally used for special slot shapes.
+29.	Cutting fluids – Usually a special type of oil used to remove heat from the part caused by friction of the cutting tool and the workpiece.
+30.	Slab milling – Spindle rotation is parallel to the surface of the part. Spinning against the part like a wheel, taking off material and usually used to flatten parts.
+31.	CAD – Computer Aided Design. Used for rapid prototyping to create a computer model of a part which can then be processed by a computer in various manufacturing processes.
+32.	Rapid prototyping – The idea of turning a design in CAD into a real part quickly in moderate to high volumes. Commonly used for testing and or demonstrating usage before a part is mass produced.
+33.	Rapid casting – A rapid prototyping technique that uses methods like 3D printing to create molds which can then be quickly casted.
+34.	Subtractive processes – Any process that requires removing material from a stock material. This includes milling and lathing.
+35.	Stereolithography – A type of 3D printing where a UV light cures a resin, layer by layer to build up the shape of a part.
+36.	Fused deposition modeling – This process uses thermoplastic filament (thin round plastic, like wire) extruded from a print head to layer plastic material to create a part.
+37.	Selective laser sintering – Using a laser to sinter and fuse powdered material together to form a structure. This is like stereolithography and can be used for ceramics or metals through powder manufacturing.
+38.	Laminated objects method – Basically gluing thin materials like paper or foils that are cut into a layer shape together to make a 3D object. This can be done with low cost and quickly but is not very strong.
+39.	Investment casting wax patterns – Coating a wax pattern in a final mold material and then melting the wax away to reveal just the mold, which can then be used to cast parts.
+40.	3D printing – Layering small amounts of material on top of each other to form a 3d part.
+41.	Full scale functional prototyping – The category of 
+42.	Non-traditional machining processes – A category of processes that do not form chips with a tool or grinding wheel.
+43.	Chemical processes – Machining processes that use chemicals to remove material from a part. Commonly using strong acid or caustic to do so.
+44.	Chemical blanking – This process can etch through parts without leaving any edge imperfections or burrs.
+45.	Electrochemical processes – Electrochemical machining and grinding. Can be used to machine medical implants and leaves a superior surface finish.
+46.	Water-jet machining – Forcing high pressure water mixed with abrasives through a nozzle, which creates enough cutting power to cut through metals, ceramics, and other materials.
+47.	Electrical discharge machining – Using electric arcs to vaporize metal. Slowly removing metal fragments with the electrical arc, which gradually creates a cavity.
+48.	Laser beam machining – Light Amplification by Stimulated Emission of Radiation. Highly focused and very energy dense light beams that will vaporize the material. Laser beam machining uses this technology to manufacture parts to near net-shape.
+49.	Continuous wave laser – The laser light is continuously moving by being reflected back and forth with only a small amount of light being let out from one side. 
+50.	Solid state laser (YAG) – Pulsing high powered flashlamps into a laser rod, which is a special kind of crystal that when the light exits the crystal, it has all the properties of laser light. This exiting light is then focused onto the part.
