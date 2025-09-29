@@ -31,6 +31,13 @@ def read_json(file):
         exit_program()
     else: return None
 
+def find_json(file):
+    try:
+        with open(file, 'r') as f:
+            return True
+    except FileNotFoundError:
+        return False
+
 def save_json(file, data):
     try:
         with open(file, 'w') as f:
@@ -117,32 +124,37 @@ def practice_mode(filename):
         print("File Not Found, Exiting.")
         exit_program()
 
-def create_mode(filename):
+def create_mode(filename): # create and save new flashcards to a file (can't edit existing files)
 
-    data = read_json(filename)
-    if(data != None):
-        go = "y"
+    if(find_json(filename)):
+        print("File already exists, please use edit mode to modify existing files.")
+        exit_program()
 
-        while(go != ''):
-            
-            term = input("Enter the new term: ")
+    data = {}
 
-            if term == 'q':
-                clear_screen()
-                save_and_exit(filename, data)
+    go = "y"
 
-            definition = input("Enter the new definition: ")
-
-            if definition == 'q':
-                save_and_exit(filename, data)
-
-            data[term] = definition
-
-            go = input("Continue (enter), or quit (q).")
+    while(go != 'q'):
         
-        save_and_exit(filename, data)
+        term = input("Enter the new term: ")
 
-def edit_mode(filename):
+        if term == 'q':
+            clear_screen()
+            save_and_exit(filename, data)
+
+        definition = input("Enter the new definition: ")
+
+        if definition == 'q':
+            save_and_exit(filename, data)
+
+        data[term] = definition
+
+        go = input("Continue (enter), or quit (q).")
+    
+    save_and_exit(filename, data)
+        
+
+def edit_mode(filename): # edit existing flashcards in a file
 
     #set = FlashcardSet()
     data = read_json(filename)
