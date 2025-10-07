@@ -190,18 +190,17 @@ def edit_mode(filename): # edit existing flashcards in a file
                     keys = list(data.keys())  # update keys list
                     if(idx > len(keys) - 1):
                         idx = 0  # loop back to start if we deleted the last card
-                
+                    else: idx += 1
+                save_json(filename, data)  # save after deletion
                 
             if go == 'e':
                 pass # edit card function to be implemented
             if go == "":
                 idx += 1
                 
-
-    
     else:
         print("File Not Found, Exiting.")
-        exit_program()
+        save_and_exit(filename, data)  # redundant but safe
 
 
 def edit_card(data, key): # edit a specific card in the dictionary
