@@ -166,74 +166,46 @@ def edit_mode(filename): # edit existing flashcards in a file
 
         keys = list(data.keys())
         values = list(data.values())
-        termdef = 0  # 0 for term, 1 for definition
 
-        while go == "":  # program should continue
+        while go != 'q':  # program should continue
 
-            #clear_screen()
+            clear_screen()
 
             if(idx > len(keys) - 1):  # loop back to start
                 idx = 0
-            if(idx < 0):
-                idx = len(keys) - 1  # loop to end
+            
 
-            line = ''
+            print("Term: ", keys[idx], '\n')
+            print("Definition: ", data[keys[idx]], '\n')
 
-            if termdef == 0:
-                line = keys[idx]
-            else:
-                line = data[keys[idx]]
-
-            print(dc.display_card(line, 26 * 2, 2, 2))
-
-            go = input("next (enter), flip (f), back (b), quit (q), edit (e), delete (d): ")
-
-            if go == 'e':
-                if termdef == 0:  # editing term
-                    new_term = input("You are changing the card's term. What would you like to change it to?\n")
-
-                    if new_term != '':
-                        keys[idx] = new_term
-                        # create new dict from stored lists
-                        data = dict(zip(keys, values))
-                        save_json(filename, data)
-                        data = read_json(filename)
-                else:  # editing definition
-                    new_def = input("You are changing the card's definition. What would you like to change it to?\n")
-
-                    if new_def != '':
-                        data[keys[idx]] = new_def
-                        save_json(filename, data)
-                        data = read_json(filename)
-                
+            go = input("next (enter), edit card (e), delete card (d), back (b), quit (q): ")
+            
+            if go == 'b':
+                idx -= 1
 
             if go == 'd':
-                pass
-
-            if go == 'q':
-                clear_screen()
-                save_and_exit(filename, data)
-            
-            elif go == 'f':  # flip term and loop again, without going to the next card
-                if termdef == 1: termdef = 0;
-                else: termdef = 1
-
-            elif go == 'b':
-                idx -= 1
-                termdef = 0  # reset card back to show term
-            
-            elif go == '':
+                confirm = input("Are you sure you want to delete this card? (y/n): ")
+                if confirm == 'y':
+                    del data[keys[idx]]
+                    keys = list(data.keys())  # update keys list
+                    if(idx > len(keys) - 1):
+                        idx = 0  # loop back to start if we deleted the last card
+                
+                
+            if go == 'e':
+                pass # edit card function to be implemented
+            if go == "":
                 idx += 1
-                termdef = 0  # reset card back to show term
+                
 
-            go = ''
-
-        save_and_exit(filename, data)
     
     else:
         print("File Not Found, Exiting.")
         exit_program()
 
+
+def edit_card(data, key): # edit a specific card in the dictionary
+    pass
 
 def main():
 
