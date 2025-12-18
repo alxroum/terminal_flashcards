@@ -74,3 +74,16 @@ All flashcard sets are saved in ```.json``` files. All files have terms and defi
 }
 ```
 <br>
+
+
+
+
+
+
+
+NEW FEATURES IN PROGRESS:
+
+- website
+- different website styles for traditional terminal look vs modern flashcard look
+- integrated account with google
+- aws hosting
