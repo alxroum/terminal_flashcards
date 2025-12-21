@@ -5,7 +5,7 @@
 
 :root {
     background-color: var(--screen-background-color);
-    animation: refresh 3s infinite;
+    /*animation: refresh 3s infinite;*/
 }
 
 @keyframes refresh {
@@ -19,7 +19,6 @@
     color: var(--screen-text-color);
     text-shadow: 0px 0px 12px var(--screen-text-color);
     font-family: 'Courier New', Courier, monospace;
-    filter: blur(0.7px);
     padding: 1em;
 }
 
@@ -39,13 +38,38 @@
 
 .terminal-screen a {
     cursor: text;
+    margin: 0;
+}
+
+.terminal-input-region {
+    margin: 0;
+    padding: 0;
+    background-color: blue;
+    width: 0;
 }
 
 #text-input {
+    margin: 0;
+    padding: 0;
     background-color: inherit;
     border: none;
     field-sizing: content;
+    font: inherit;
+    color: inherit;
+    line-height: inherit;
+    text-shadow: inherit;
 }
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+}
+
+#text-input:active {
+    border: none;
+}
+
 
 .to-old-styling {
     color: var(--screen-text-color);
