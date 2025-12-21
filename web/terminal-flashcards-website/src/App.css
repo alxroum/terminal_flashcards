@@ -1,0 +1,29 @@
+/*
+  css styling for the react app (more interactive elements)
+*/
+
+#root {
+  max-width: 1280px;
+  text-align: center;
+  padding: 0;
+}
+
+.terminal-flashcards-logo:hover {
+  filter: drop-shadow(0 0 0.75em rgb(65, 65, 65));
+}
+
+.card {
+  padding: 2em;
+}
+
+h1 a {
+  color: inherit;
+}
+
+h1 a:hover {
+  color: inherit;
+}
+
+.read-the-docs {
+  color: #888;
+}

@@ -1,0 +1,58 @@
+* {
+    --screen-text-color: #00c147;
+    --screen-background-color: #0a0f0baa;
+}
+
+:root {
+    background-color: var(--screen-background-color);
+    animation: refresh 3s infinite;
+}
+
+@keyframes refresh {
+    50% {background-color: #162118aa};
+}
+
+.terminal-screen {
+    cursor: text;
+    text-align: left;
+    line-height: 2.5;
+    color: var(--screen-text-color);
+    text-shadow: 0px 0px 12px var(--screen-text-color);
+    font-family: 'Courier New', Courier, monospace;
+    filter: blur(0.7px);
+    padding: 1em;
+}
+
+#cursor {
+    animation: blink 1.25s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; };
+}
+
+.terminal-screen::selection {
+    background-color: var(--screen-text-color);
+    color: black;
+    text-shadow: 0px 0px 12px var(--screen-background-color);
+}
+
+.terminal-screen a {
+    cursor: text;
+}
+
+#text-input {
+    background-color: inherit;
+    border: none;
+    field-sizing: content;
+}
+
+.to-old-styling {
+    color: var(--screen-text-color);
+    text-shadow: 0px 0px 12px var(--screen-text-color);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.terminal-container a {
+    color:inherit;
+}
