@@ -46,11 +46,18 @@
     padding: 0;
     background-color: blue;
     width: 0;
+    display: flex;
 }
 
-#text-input {
+#current-terminal-line {
+    display: grid;
+    grid-template-columns: 9.5em auto;
+}
+
+#text-area {
     margin: 0;
     padding: 0;
+
     background-color: inherit;
     border: none;
     field-sizing: content;
@@ -58,15 +65,19 @@
     color: inherit;
     line-height: inherit;
     text-shadow: inherit;
+    vertical-align: auto;
+    cursor: text;
+    resize: none;
+    overflow-y: auto;
+    white-space: 'pre-wrap';
+    word-wrap: break-word;
 }
 
-input:focus,
-textarea:focus,
-select:focus {
+#text-area:focus {
     outline: none;
 }
 
-#text-input:active {
+#text-area:active {
     border: none;
 }
 

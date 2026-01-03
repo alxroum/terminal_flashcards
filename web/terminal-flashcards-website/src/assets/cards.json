@@ -1,0 +1,5 @@
+{
+  "Polymorphism": "The ability of different objects to respond to the same message in different ways",
+  "Encapsulation": "Bundling data with methods that operate on that data",
+  "Inheritance": "Deriving new classes from existing ones"
+}
