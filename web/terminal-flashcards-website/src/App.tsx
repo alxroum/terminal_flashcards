@@ -3,8 +3,8 @@ import './App.css'
 import './TerminalEffect.css'
 
 interface Card {
-  question: string;
-  answer: string;
+  term: string;
+  definition: string;
 }
 
 function useFlashcards(cards: Card[]) {
@@ -14,46 +14,32 @@ function useFlashcards(cards: Card[]) {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const start = () => {
-    setOutput(["Welcome! Type 'start' to begin flashcards, or 'help' for commands."]);
-    setPrompt("Ready");
+    setOutput([""]);
+    setPrompt("");
   };
 
   const sendInput = (input: string) => {
-    const cmd = input.trim().toLowerCase();
+    const _arguments = input.trim().toLowerCase().split(' ');
+    console.log(_arguments);
     
-    if (cmd === 'start') {
-      setCurrentIndex(0);
-      setPrompt(cards[0]?.question || "No cards available");
-      setOutput((prev: string[]) => [...prev, `> ${input}`, "Starting flashcards..."]);
-    } else if (cmd === 'help') {
-      setOutput((prev: string[]) => [...prev, `> ${input}`, "Commands: start, next, quit"]);
-    } else if (cmd === 'next') {
-      const nextIndex = currentIndex + 1;
-      if (nextIndex < cards.length) {
-        setCurrentIndex(nextIndex);
-        setPrompt(cards[nextIndex].question);
-        setOutput((prev: string[]) => [...prev, `> ${input}`, `Moving to question ${nextIndex + 1}...`]);
-      } else {
-        setDone(true);
-        setPrompt("Complete!");
-        setOutput((prev: string[]) => [...prev, `> ${input}`, "All cards completed!"]);
-      }
-    } else if (cmd === 'quit') {
-      setDone(true);
-      setPrompt("Goodbye");
-      setOutput((prev: string[]) => [...prev, `> ${input}`, "Exiting flashcards..."]);
-    } else {
-      setOutput((prev: string[]) => [...prev, `> ${input}`, `Answer: ${cards[currentIndex]?.answer || 'N/A'}`, "Type 'next' for next card"]);
+    const prev_commands = document.getElementById("previous-commands");
+    // make sure the input is valid
+    // the enterCommand function already screens for no input, so we at least have something in input
+    if(_arguments[0] == 'help') {
+      // previous command call is saved to 'previous-commands' div
+      if(prev_commands) prev_commands.innerHTML += ">> help";
+      setPrompt("") // prompt will be set to the output of the command
     }
+    
   };
 
   return { output, prompt, start, sendInput, done };
 }
 
 const sampleCards = [
-  { question: "What is the capital of France?", answer: "Paris" },
-  { question: "What is 2 + 2?", answer: "4" },
-  { question: "What color is the sky?", answer: "Blue" }
+  { term: "What is the capital of France?", definition: "Paris" },
+  { term: "What is 2 + 2?", definition: "4" },
+  { term: "What color is the sky?", definition: "Blue" }
 ];
 
 function App() {
@@ -78,9 +64,10 @@ function App() {
     }
   }, [output]);
 
-  const handleKey = () => {
+  const handleKey = (e: Event) => {
     if (inputRef.current && document.activeElement !== inputRef.current) {
       inputRef.current.focus();
+      e.preventDefault(); // prevent uncommon error of going to a new line when text area is refocused by pressing enter
     }
   }
 
@@ -93,7 +80,7 @@ function App() {
   }
 
    useEffect(() => {
-    document.addEventListener("keydown", handleKey);
+    document.addEventListener("keydown", e => {handleKey(e)});
     return () => {
       document.removeEventListener("keydown", handleKey);
     };
@@ -136,14 +123,17 @@ function App() {
             [Terminal Flashcards]<br></br>
             Install the executable and view updates at https://github.com/alxroum/terminal_flashcards<br/>
             =========================================================================================<br/>
+            Welcome to terminal flashcards! Enter a command to get started, or type 'help' for commands.
           </div>
 
-          <div id="appendable-section"> {/* this is where console text will be added */}
-            {output.map((line, index) => (
-              <div key={index} className="mb-1">
-                {line}
-              </div>
-            ))}
+          <div id="previous-commands"> {/* this is where the previous commands will be added to the screen */}
+          
+          </div>
+
+          <div>{prompt}</div>
+
+          <div id="current-card"> {/* this is where the currently displayed card will be added */}
+            {output}
           </div>
 
           <span id="current-terminal-line">

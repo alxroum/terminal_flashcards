@@ -1,4 +1,4 @@
-function displayCard(text, width = 52, padding = 2) {
+export function displayCard(text, width = 52, padding = 2) {
   const innerWidth = width - padding * 2;
   const lines = [];
 
@@ -19,5 +19,3 @@ function displayCard(text, width = 52, padding = 2) {
 
   return lines.join("\n");
 }
-
-module.exports = { displayCard };
