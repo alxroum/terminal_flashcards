@@ -25,10 +25,24 @@ function useFlashcards(cards: Card[]) {
     const prev_commands = document.getElementById("previous-commands");
     // make sure the input is valid
     // the enterCommand function already screens for no input, so we at least have something in input
+    
     if(_arguments[0] == 'help') {
       // previous command call is saved to 'previous-commands' div
-      if(prev_commands) prev_commands.innerHTML += ">> help";
-      setPrompt("") // prompt will be set to the output of the command
+      if(prev_commands) {
+        prev_commands.innerHTML += ">> help<br>";
+        prev_commands.innerHTML += `Usage: &lt;mode&gt; &lt;filename&gt;<br>Modes: practice (pr), create (cr), edit (em)<br>Filename: exclude file extension (file should be a json file)<br>`; // prompt will be set to the output of the command
+      }
+    } 
+    else if(_arguments[0] == 'clear') {
+      if(prev_commands) {
+        prev_commands.innerHTML = ""; // clear the previous commands div
+      }
+    }
+    else {
+      if(prev_commands) {
+        prev_commands.innerHTML += ">> " + _arguments[0] + "<br>";
+        prev_commands.innerHTML += "Unexpected Arguments. Usage: &lt;mode&gt; &lt;filename&gt;<br> For more information, use 'help'<br>";
+      }
     }
     
   };
@@ -129,8 +143,6 @@ function App() {
           <div id="previous-commands"> {/* this is where the previous commands will be added to the screen */}
           
           </div>
-
-          <div>{prompt}</div>
 
           <div id="current-card"> {/* this is where the currently displayed card will be added */}
             {output}
