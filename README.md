@@ -92,4 +92,4 @@ NEW FEATURES IN PROGRESS:
 
 Terminal Site Example
 <br><br>
-<img src="graphics/terminal_example_01.png" alt="terminal usage example 01" title="terminal usage example 01"> 
+<img src="graphics/terminal_example_02.png" alt="terminal usage example 01" title="terminal usage example 01"> 
