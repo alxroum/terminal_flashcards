@@ -24,6 +24,15 @@ git clone https://github.com/alxroum/terminal_flashcards.git
 ```
 <br>
 
+### <b>Setup</b>
+
+As of 1/5/2026, the program is only a python script and needs to be executed in the following way.
+
+In the terminal_flashcards folder:
+```
+python program.py <mode> <filename>
+```
+
 ### <b>Usage</b>
 ```
 Modes: practice (pr), create (cr), edit (em)
