@@ -87,3 +87,9 @@ NEW FEATURES IN PROGRESS:
 - different website styles for traditional terminal look vs modern flashcard look
 - integrated account with google
 - aws hosting
+
+<br>
+
+Terminal Site Example
+<br><br>
+<img src="graphics/terminal_example_01.png" alt="terminal usage example 01" title="terminal usage example 01"> 
