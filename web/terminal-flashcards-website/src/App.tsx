@@ -26,6 +26,17 @@ function useFlashcards(cards: Card[]) {
     // make sure the input is valid
     // the enterCommand function already screens for no input, so we at least have something in input
     
+    switch (_arguments[0]) {
+      case 'help':
+        break;
+      case 'clear':
+        break;
+      case '':
+        break;
+      default:
+
+    }
+
     if(_arguments[0] == 'help') {
       // previous command call is saved to 'previous-commands' div
       if(prev_commands) {
@@ -33,6 +44,12 @@ function useFlashcards(cards: Card[]) {
         prev_commands.innerHTML += `Usage: &lt;mode&gt; &lt;filename&gt;<br>Modes: practice (pr), create (cr), edit (em)<br>Filename: exclude file extension (file should be a json file)<br>`; // prompt will be set to the output of the command
       }
     } 
+    // practice mode is selected and there is a filename provided
+    else if(_arguments[0] == 'pr' && _arguments[1]) {
+      // validate the file name
+      // load the terms and definitions
+      // enter practice mode
+    }
     else if(_arguments[0] == 'clear') {
       if(prev_commands) {
         prev_commands.innerHTML = ""; // clear the previous commands div
